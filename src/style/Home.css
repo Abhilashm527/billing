@@ -1,0 +1,61 @@
+/* Home.css */
+.homepage {
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar {
+  height: 60px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: lightgray;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  height: 100vh;
+}
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+li a {
+  text-decoration: none;
+  color: #333;
+}
+
+li a:hover {
+  color: #ff6347; /* Change the color on hover (you can use any color you prefer) */
+}
+
+.main {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Media query for mobile view */
+@media (max-width: 768px) {
+  .homepage {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: auto;
+    height: auto;
+  }
+}

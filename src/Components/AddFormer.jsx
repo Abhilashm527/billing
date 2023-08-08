@@ -1,29 +1,43 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle } from "reactstrap";
-import '../style/Card.css'
+import axios from 'axios';
+
 const AddFormer = () => {
   const [userDetails, setUserDetails] = useState({
     name: '',
-    phonenumber: '',
-    address: '',
+    PhoneNumber: '',
+    Address: '',
   });
+
+  const [successMessage, setSuccessMessage] = useState('');
 
   const submitForm = (event) => {
     event.preventDefault();
-    // You can perform any actions you want with the user details here
-    console.log('User Details:', userDetails);
-    // You can also emit an event to send the data to a parent component if needed
-    // this.props.onUserDetailsSubmitted(userDetails);
+
+    // Make a request to the API using axios
+    const url = 'http://localhost:8080/addFarmer';
+    const data = {
+      name: userDetails.name,
+      PhoneNumber: userDetails.phonenumber,
+      Address: userDetails.address,
+    };
+    axios.post(url, data).then((response) => {
+      if (response.status === 200) {
+        setSuccessMessage('Farmer added successfully');
+      } else {
+        alert('An error occurred');
+      }
+    });
   };
 
   return (
     <div>
-      {/* <h2>ಹೊಸ ರೈತರನ್ನು ಸೇರಿಸಿ</h2> */ }
+      <h2>ಹೊಸ ರೈತರನ್ನು ಸೇರಿಸಿ</h2> 
       <h2>Add </h2>
       <form onSubmit={submitForm} acceptCharset="UTF-8">
         <div>
-          <label htmlFor="name" lang='kn'> name{/* <h2>ಹೊಸ ರೈತರನ್ನು ಸೇರಿಸಿ</h2> */}</label>
+          <label htmlFor="name" lang='kn'>ಹೆಸರು</label>
           <input
             type="text"
             id="name"
@@ -35,7 +49,7 @@ const AddFormer = () => {
           />
         </div>
         <div>
-          <label htmlFor="phonenumber" lang='kn'> dhjs{/* <h2>ಹೊಸ ರೈತರನ್ನು ಸೇರಿಸಿ</h2> */}</label>
+          <label htmlFor="phonenumber" lang='kn'>ಮೊಬೈಲ್ ನಂಬರ</label>
           <input
             type="number"
             id="phonenumber"
@@ -47,7 +61,7 @@ const AddFormer = () => {
           />
         </div>
         <div>
-          <label htmlFor="address" lang='kn'> fds{/* <h2>ಹೊಸ ರೈತರನ್ನು ಸೇರಿಸಿ</h2> */}</label>
+          <label htmlFor="address" lang='kn'>ವಿಳಾಸ</label>
           <textarea
             id="address"
             value={userDetails.address}
@@ -58,8 +72,13 @@ const AddFormer = () => {
           />
         </div>
         <div>
-          <button type="submit" lang='kn'>fds {/* <h2>ಹೊಸ ರೈತರನ್ನು ಸೇರಿಸಿ</h2> */}</button>
+          <button type="submit" lang='kn'>ಸಲ್ಲಿಸು</button>
         </div>
+        {successMessage && (
+          <div>
+            <p>{successMessage}</p>
+          </div>
+        )}
       </form>
     </div>
   );
